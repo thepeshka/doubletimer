@@ -253,6 +253,7 @@ namespace doubleTimer
             saveSettings();
         }
 
+        //@FIXME: Error after pressing backspace in empty textbox
         private void editDisp1Sect1_TextChanged(object sender, EventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(((TextBox)sender).Text, "  ^ [0-9]"))
