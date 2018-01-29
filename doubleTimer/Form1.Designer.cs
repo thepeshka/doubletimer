@@ -49,6 +49,12 @@
             this.switchBtn = new System.Windows.Forms.Button();
             this.resetBtn = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // editTimersBtn
@@ -65,7 +71,7 @@
             // editLabelsBtn
             // 
             this.editLabelsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.editLabelsBtn.Location = new System.Drawing.Point(417, 276);
+            this.editLabelsBtn.Location = new System.Drawing.Point(417, 277);
             this.editLabelsBtn.Name = "editLabelsBtn";
             this.editLabelsBtn.Size = new System.Drawing.Size(156, 46);
             this.editLabelsBtn.TabIndex = 7;
@@ -83,6 +89,7 @@
             this.editDisp1Sect1.Location = new System.Drawing.Point(16, 9);
             this.editDisp1Sect1.MaxLength = 2;
             this.editDisp1Sect1.Name = "editDisp1Sect1";
+            this.editDisp1Sect1.ReadOnly = true;
             this.editDisp1Sect1.Size = new System.Drawing.Size(125, 121);
             this.editDisp1Sect1.TabIndex = 8;
             this.editDisp1Sect1.Text = "00";
@@ -110,6 +117,7 @@
             this.editDisp1Sect2.Location = new System.Drawing.Point(164, 9);
             this.editDisp1Sect2.MaxLength = 2;
             this.editDisp1Sect2.Name = "editDisp1Sect2";
+            this.editDisp1Sect2.ReadOnly = true;
             this.editDisp1Sect2.Size = new System.Drawing.Size(125, 121);
             this.editDisp1Sect2.TabIndex = 10;
             this.editDisp1Sect2.Text = "00";
@@ -126,6 +134,7 @@
             this.editDisp1Sect3.Location = new System.Drawing.Point(313, 9);
             this.editDisp1Sect3.MaxLength = 2;
             this.editDisp1Sect3.Name = "editDisp1Sect3";
+            this.editDisp1Sect3.ReadOnly = true;
             this.editDisp1Sect3.Size = new System.Drawing.Size(125, 121);
             this.editDisp1Sect3.TabIndex = 11;
             this.editDisp1Sect3.Text = "00";
@@ -141,6 +150,7 @@
             this.editDisp2Sect1.Location = new System.Drawing.Point(16, 143);
             this.editDisp2Sect1.MaxLength = 2;
             this.editDisp2Sect1.Name = "editDisp2Sect1";
+            this.editDisp2Sect1.ReadOnly = true;
             this.editDisp2Sect1.Size = new System.Drawing.Size(125, 121);
             this.editDisp2Sect1.TabIndex = 12;
             this.editDisp2Sect1.Text = "00";
@@ -156,6 +166,7 @@
             this.editDisp2Sect3.Location = new System.Drawing.Point(313, 143);
             this.editDisp2Sect3.MaxLength = 2;
             this.editDisp2Sect3.Name = "editDisp2Sect3";
+            this.editDisp2Sect3.ReadOnly = true;
             this.editDisp2Sect3.Size = new System.Drawing.Size(125, 121);
             this.editDisp2Sect3.TabIndex = 14;
             this.editDisp2Sect3.Text = "00";
@@ -171,6 +182,7 @@
             this.editDisp2Sect2.Location = new System.Drawing.Point(164, 143);
             this.editDisp2Sect2.MaxLength = 2;
             this.editDisp2Sect2.Name = "editDisp2Sect2";
+            this.editDisp2Sect2.ReadOnly = true;
             this.editDisp2Sect2.Size = new System.Drawing.Size(125, 121);
             this.editDisp2Sect2.TabIndex = 13;
             this.editDisp2Sect2.Text = "00";
@@ -258,7 +270,7 @@
             // resetBtn
             // 
             this.resetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.resetBtn.Location = new System.Drawing.Point(285, 276);
+            this.resetBtn.Location = new System.Drawing.Point(285, 277);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(126, 46);
             this.resetBtn.TabIndex = 22;
@@ -268,9 +280,48 @@
             // 
             // notifyIcon
             // 
+            this.notifyIcon.ContextMenuStrip = this.contextMenuTray;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "notifyIcon1";
-            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // contextMenuTray
+            // 
+            this.contextMenuTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreToolStripMenuItem,
+            this.switchToolStripMenuItem,
+            this.startPauseToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.contextMenuTray.Name = "contextMenuTray";
+            this.contextMenuTray.Size = new System.Drawing.Size(114, 92);
+            // 
+            // restoreToolStripMenuItem
+            // 
+            this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.restoreToolStripMenuItem.Text = "Restore";
+            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
+            // 
+            // switchToolStripMenuItem
+            // 
+            this.switchToolStripMenuItem.Name = "switchToolStripMenuItem";
+            this.switchToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.switchToolStripMenuItem.Text = "Switch";
+            this.switchToolStripMenuItem.Click += new System.EventHandler(this.switchToolStripMenuItem_Click);
+            // 
+            // startPauseToolStripMenuItem
+            // 
+            this.startPauseToolStripMenuItem.Name = "startPauseToolStripMenuItem";
+            this.startPauseToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.startPauseToolStripMenuItem.Text = "Start";
+            this.startPauseToolStripMenuItem.Click += new System.EventHandler(this.startPauseToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -300,6 +351,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.contextMenuTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,6 +377,11 @@
         private System.Windows.Forms.Button switchBtn;
         private System.Windows.Forms.Button resetBtn;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip contextMenuTray;
+        private System.Windows.Forms.ToolStripMenuItem switchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startPauseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
     }
 }
 

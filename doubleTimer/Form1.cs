@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using doubleTimer.Properties;
+using System.Diagnostics;
 
 namespace doubleTimer
 {
@@ -21,12 +22,6 @@ namespace doubleTimer
         {
             InitializeComponent();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (editTimersBtn.Text == "Edit Timers")
@@ -60,17 +55,6 @@ namespace doubleTimer
             }
 
         }
-
-        private void setButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             labelDisp1.Enabled = !labelDisp1.Enabled;
@@ -189,6 +173,8 @@ namespace doubleTimer
                 editDisp2Sect2.ForeColor = Color.Green;
                 editDisp2Sect3.ForeColor = Color.Green;
             }
+            string notifyIconText = labelDisp1.Text + ": " + editDisp1Sect1.Text + ":" + editDisp1Sect2.Text + ":" + editDisp1Sect3.Text + "; " + labelDisp2.Text + ": " + editDisp2Sect1.Text + ":" + editDisp2Sect2.Text + ":" + editDisp2Sect3.Text;
+            notifyIcon.Text = Truncate(notifyIconText, 63);
         }
 
         private void switchBtn_Click(object sender, EventArgs e)
@@ -224,6 +210,8 @@ namespace doubleTimer
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
+            timer.Enabled = false;
+            startPauseBtn.Text = "Start";
             timer1["hrs"] = 0;
             timer1["min"] = 0;
             timer1["sec"] = 0;
@@ -252,23 +240,23 @@ namespace doubleTimer
         {
             saveSettings();
         }
-
-        //@FIXME: Error after pressing backspace in empty textbox
+        
         private void editDisp1Sect1_TextChanged(object sender, EventArgs e)
         {
+            TextBox textBox = (TextBox)sender;
             if (System.Text.RegularExpressions.Regex.IsMatch(((TextBox)sender).Text, "  ^ [0-9]"))
             {
-                ((TextBox)sender).Text = "";
+                textBox.Text = "";
             }
-            if (Int32.Parse(((TextBox)sender).Text) > 59)
+            if (textBox.Text != "" && Int32.Parse(textBox.Text) > 59)
             {
-                ((TextBox)sender).Text = "59";
+                textBox.Text = "59";
             }
         }
 
         private void editDisp1Sect1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -283,7 +271,29 @@ namespace doubleTimer
             }
         }
 
-        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+        }
+
+        private void switchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switchBtn_Click(sender,e);
+        }
+
+        private void startPauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            startPauseBtn_Click(sender, e);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Show();
             WindowState = FormWindowState.Normal;
