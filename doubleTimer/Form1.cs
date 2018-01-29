@@ -90,6 +90,11 @@ namespace doubleTimer
             toogleTimer();
         }
 
+        string Truncate(string value, int maxLength)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+        }
         private void timer_Tick(object sender, EventArgs e)
         {
             if (targetTimer == "first")
@@ -125,6 +130,8 @@ namespace doubleTimer
                 editDisp2Sect2.Text = (timer2["min"] < 10 ? "0" : "") + timer2["min"].ToString();
                 editDisp2Sect3.Text = (timer2["sec"] < 10 ? "0" : "") + timer2["sec"].ToString();
             }
+            string notifyIconText = labelDisp1.Text + ": " + editDisp1Sect1.Text + ":" + editDisp1Sect2.Text + ":" + editDisp1Sect3.Text + "; " + labelDisp2.Text + ": " + editDisp2Sect1.Text + ":" + editDisp2Sect2.Text + ":" + editDisp2Sect3.Text;
+            notifyIcon.Text = Truncate(notifyIconText, 63);
         }
 
         void loadConfig()
@@ -170,7 +177,12 @@ namespace doubleTimer
             editDisp2Sect2.Text = (timer2["min"] < 10 ? "0" : "") + timer2["min"].ToString();
             editDisp2Sect3.Text = (timer2["sec"] < 10 ? "0" : "") + timer2["sec"].ToString();
             if (targetTimer != "first")
-            { 
+            {
+                semicolon11.ForeColor = Color.Black;
+                semicolon12.ForeColor = Color.Black;
+                editDisp1Sect1.ForeColor = Color.Black;
+                editDisp1Sect2.ForeColor = Color.Black;
+                editDisp1Sect3.ForeColor = Color.Black;
                 semicolon21.ForeColor = Color.Green;
                 semicolon22.ForeColor = Color.Green;
                 editDisp2Sect1.ForeColor = Color.Green;
@@ -259,6 +271,22 @@ namespace doubleTimer
             {
                 e.Handled = true;
             }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == WindowState)
+            {
+                Hide();
+                notifyIcon.Visible = true;
+            }
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
         }
     }
 }
