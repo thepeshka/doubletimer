@@ -295,6 +295,7 @@ namespace doubleTimer
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //@FIXME: window showed by right clicking
             Show();
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
