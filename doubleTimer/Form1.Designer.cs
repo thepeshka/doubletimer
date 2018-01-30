@@ -191,21 +191,25 @@
             // 
             // labelDisp1
             // 
-            this.labelDisp1.Enabled = false;
+            this.labelDisp1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.labelDisp1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.labelDisp1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.labelDisp1.Location = new System.Drawing.Point(444, 52);
             this.labelDisp1.Name = "labelDisp1";
-            this.labelDisp1.Size = new System.Drawing.Size(123, 38);
+            this.labelDisp1.ReadOnly = true;
+            this.labelDisp1.Size = new System.Drawing.Size(123, 31);
             this.labelDisp1.TabIndex = 15;
             this.labelDisp1.Text = "Timer 1";
             // 
             // labelDisp2
             // 
-            this.labelDisp2.Enabled = false;
+            this.labelDisp2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.labelDisp2.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.labelDisp2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.labelDisp2.Location = new System.Drawing.Point(444, 186);
             this.labelDisp2.Name = "labelDisp2";
-            this.labelDisp2.Size = new System.Drawing.Size(123, 38);
+            this.labelDisp2.ReadOnly = true;
+            this.labelDisp2.Size = new System.Drawing.Size(123, 31);
             this.labelDisp2.TabIndex = 16;
             this.labelDisp2.Text = "Timer 2";
             // 
@@ -283,6 +287,7 @@
             this.notifyIcon.ContextMenuStrip = this.contextMenuTray;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "notifyIcon1";
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // contextMenuTray

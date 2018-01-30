@@ -57,16 +57,18 @@ namespace doubleTimer
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            labelDisp1.Enabled = !labelDisp1.Enabled;
-            labelDisp2.Enabled = !labelDisp2.Enabled;
+            labelDisp1.ReadOnly = !labelDisp1.ReadOnly;
+            labelDisp2.ReadOnly = !labelDisp2.ReadOnly;
+            labelDisp1.BackColor = labelDisp2.BackColor = Color.FromName("Control");
             editLabelsBtn.Text = (labelDisp1.Enabled ? "Set Labels" : "Edit Labels");
         }
 
         bool toogleTimer(params bool[]state)
         {
             bool targetState = (state.GetLength(0) > 0 ? state[0] : !timer.Enabled);
-            startPauseBtn.Text = (targetState ? "Pause" : "Start");
+            startPauseBtn.Text = startPauseToolStripMenuItem.Text = (targetState ? "Pause" : "Start");
             timer.Enabled = targetState;
+            this.Icon = notifyIcon.Icon = (targetState?doubleTimer.Properties.Resources.icon_play:doubleTimer.Properties.Resources.icon_stop);
             return targetState;
         }
         private void startPauseBtn_Click(object sender, EventArgs e)
@@ -210,8 +212,7 @@ namespace doubleTimer
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
-            timer.Enabled = false;
-            startPauseBtn.Text = "Start";
+            toogleTimer(false);
             timer1["hrs"] = 0;
             timer1["min"] = 0;
             timer1["sec"] = 0;
@@ -295,10 +296,19 @@ namespace doubleTimer
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //@FIXME: window showed by right clicking
             Show();
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                WindowState = FormWindowState.Normal;
+                notifyIcon.Visible = false;
+            }
         }
     }
 }
