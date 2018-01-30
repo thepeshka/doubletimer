@@ -285,6 +285,7 @@ namespace doubleTimer
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
+            //@FIXME: window showed by right clicking
             Show();
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
