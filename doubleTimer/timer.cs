@@ -38,11 +38,11 @@ namespace doubleTimerV2
         string maskTime(string mask, int h, int m, int s)
         {
             
-            mask = mask.Replace("%hh", (h < 9 ? "0" : "") + h.ToString());
+            mask = mask.Replace("%hh", (h < 10 ? "0" : "") + h.ToString());
             mask = mask.Replace("%h", h.ToString());
-            mask = mask.Replace("%mm", (m < 9 ? "0" : "") + m.ToString());
+            mask = mask.Replace("%mm", (m < 10 ? "0" : "") + m.ToString());
             mask = mask.Replace("%m", m.ToString());
-            mask = mask.Replace("%ss", (s < 9 ? "0" : "") + s.ToString());
+            mask = mask.Replace("%ss", (s < 10 ? "0" : "") + s.ToString());
             mask = mask.Replace("%s", s.ToString());
             return mask;
         }
@@ -88,6 +88,7 @@ namespace doubleTimerV2
         private void swtchBtnClick(object sender, EventArgs e)
         {
             parent.newActive(id);
+            parent.Controls.Find("startStopBtn", false)[0].Text = "Stop";
         }
 
         //0 is stop, 1 is start, 2 is toggle
@@ -110,8 +111,14 @@ namespace doubleTimerV2
             return _timer.Enabled;
         }
 
+        public void deselectDipsplay()
+        {
+            this.display.Select(0, 0);
+        }
+
         public timer(Control parent, int id, string name, int val = 0)
         {
+            log("trying to add timer id=" + id.ToString());
             this.parent = (Form1)parent;
             this.id = id;
             this.name = name;
@@ -121,19 +128,19 @@ namespace doubleTimerV2
             display = new System.Windows.Forms.TextBox();
             swtchBtn = new System.Windows.Forms.Button();
             label = new System.Windows.Forms.TextBox();
-            this._timer = new Timer();
+            this._timer = new Timer();/*
             root.SuspendLayout();
-            parent.SuspendLayout();
+            parent.SuspendLayout();*/
             // 
             // root
             // 
             root.Controls.Add(swtchBtn);
             root.Controls.Add(label);
             root.Controls.Add(display);
-            root.Location = new System.Drawing.Point(12, 12 + 81*id);
-            parent.Height += 12 + 81;
+            root.Location = new System.Drawing.Point(12,20 + (12 + 81) * id);
             root.Name = "panel"+id.ToString();
             root.Size = new System.Drawing.Size(571, 81);
+            parent.Height = 80 + root.Location.Y + root.Size.Height + 12;
             root.TabIndex = 0;
             // 
             // display
@@ -173,10 +180,10 @@ namespace doubleTimerV2
             //
             _timer.Tick += new System.EventHandler(this.handleTick);
             _timer.Interval = 1000;
-            parent.Controls.Add(root);
+            parent.Controls.Add(root);/*
             root.ResumeLayout(false);
             root.PerformLayout();
-            parent.ResumeLayout(false);
+            parent.ResumeLayout(false);*/
         }
         
     }
